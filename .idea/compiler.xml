@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="mt-shop-service-api-weixin" />
+        <module name="mt-shop-service-member" />
         <module name="mt-shop-service-weixin" />
       </profile>
     </annotationProcessing>

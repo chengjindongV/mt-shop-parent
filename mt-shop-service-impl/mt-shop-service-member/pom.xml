@@ -3,18 +3,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>mt-shop-parent</artifactId>
+        <artifactId>mt-shop-service-impl</artifactId>
         <groupId>com.mayikt</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>mt-shop-service-impl</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>mt-shop-service-weixin</module>
-        <module>mt-shop-service-member</module>
-    </modules>
+    <artifactId>mt-shop-service-member</artifactId>
+
 
     <dependencies>
         <dependency>
@@ -23,5 +19,4 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
-
 </project>

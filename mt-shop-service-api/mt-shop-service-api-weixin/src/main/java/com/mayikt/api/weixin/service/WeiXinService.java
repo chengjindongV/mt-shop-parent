@@ -1,6 +1,7 @@
 package com.mayikt.api.weixin.service;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @Author: chengjindong
@@ -14,5 +15,5 @@ public interface WeiXinService {
      * @return
      */
     @GetMapping("/appInfo")
-    String appInfo(Long userId);
+    String appInfo(@RequestParam("userId")Long userId);
 }
