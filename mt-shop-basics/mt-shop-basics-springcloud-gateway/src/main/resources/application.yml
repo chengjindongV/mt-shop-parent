@@ -1,0 +1,31 @@
+server:
+  port: 80
+spring:
+  cloud:
+    nacos:
+      discovery:
+        ##服务的注册
+        server-addr: 122.51.108.102:8849
+    gateway:
+      locator:
+        enabled: true
+      routes:
+        - id: mayikt-weixin
+          uri: lb://mayikt-weixin
+          predicates:
+            - Path=/mayikt-weixin/**
+          filters:
+            - SwaggerHeaderFilter
+            - StripPrefix=1
+        - id: mayikt-member
+          uri: lb://mayikt-member
+          predicates:
+            - Path=/mayikt-member/**
+          filters:
+            - SwaggerHeaderFilter
+            - StripPrefix=1
+      x-forwarded:
+        enabled: false
+
+  application:
+    name: mayikt-gateway

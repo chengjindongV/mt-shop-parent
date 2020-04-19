@@ -6,6 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="mt-shop-basics-springcloud-gateway" />
+        <module name="mt-shop-service-api-base" />
+        <module name="mt-shop-service-api-member" />
         <module name="mt-shop-service-api-weixin" />
         <module name="mt-shop-service-member" />
         <module name="mt-shop-service-weixin" />

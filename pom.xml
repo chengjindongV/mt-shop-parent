@@ -11,6 +11,8 @@
     <modules>
         <module>mt-shop-service-api</module>
         <module>mt-shop-service-impl</module>
+        <module>mt-shop-service-base</module>
+        <module>mt-shop-basics</module>
     </modules>
 
     <parent>
@@ -31,21 +33,20 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-        <!--  springboot 整合web组件-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
+
 
 
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-alibaba-nacos-discovery</artifactId>
             <version>2.1.1.RELEASE</version>
+        </dependency>
+
+        <!-- swagger-spring-boot -->
+        <dependency>
+            <groupId>com.spring4all</groupId>
+            <artifactId>swagger-spring-boot-starter</artifactId>
+            <version>1.7.0.RELEASE</version>
         </dependency>
 
     </dependencies>
