@@ -12,4 +12,11 @@
     <artifactId>mt-shop-service-weixin</artifactId>
 
 
+    <dependencies>
+        <dependency>
+            <groupId>com.mayikt</groupId>
+            <artifactId>mt-shop-service-api-weixin</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>

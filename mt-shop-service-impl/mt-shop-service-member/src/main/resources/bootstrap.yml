@@ -1,0 +1,15 @@
+server:
+  port: 7070
+spring:
+  application:
+    name: mayikt-member
+  cloud:
+    nacos:
+      discovery:
+        ##nacos服务注册地址
+        server-addr: 122.51.108.102:8849
+      config:
+        server-addr: 122.51.108.102:8849
+        file-extension: yaml
+  profiles:
+    active: dev

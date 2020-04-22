@@ -25,4 +25,11 @@ public interface MemberService {
     @ApiImplicitParam(name = "userId", value = "用户的id", required = true)
     @ApiResponse(code = 200, message = "响应成功")
     String memberToWeiXin(Long userId);
+
+    /**
+     * 测试我们的nacos注册中心
+     * @return
+     */
+    @GetMapping("/getConfig")
+    String getConfig();
 }
