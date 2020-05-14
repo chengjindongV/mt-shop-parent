@@ -1,0 +1,43 @@
+server:
+  port: 9090
+spring:
+  application:
+    name: mayikt-weixin
+  cloud:
+    nacos:
+      discovery:
+        ##nacos服务注册地址
+        server-addr: 122.51.108.102:8849
+      config:
+        server-addr: 122.51.108.102:8849
+  datasource:
+    url: jdbc:mysql://localhost:3306/mayikt_wechat?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+    application:
+      name: mayikt-weixin
+
+#swagger:
+#  base-package: com.mayikt.weixin.impl.service
+#  title: SpringCloud2.x构建微服务电商项目-微信服务接口
+#  description: 该项目“基于SpringCloud2.x构建微服务电商项目”由每特教育|蚂蚁课堂版权所有，未经过允许的情况下，私自分享视频和源码属于违法行为。
+#  version: 1.1
+#  terms-of-service-url: www.mayikt.com
+#  contact:
+#    name: 97后互联网架构师-余胜军
+#    email: 644064779@qq.com
+#    url: www.mayikt.com
+#  enabled: true
+
+logging:
+  level:
+    org.springframework.web: INFO
+    com.github.binarywang.demo.wx.mp: DEBUG
+    me.chanjar.weixin: DEBUG
+wx:
+  mp:
+    configs:
+      - appId: wx5c43fde3c9733d9e
+        secret: b8b217126c33a5fb7074927d5e72a81a
+        token: mayikt
