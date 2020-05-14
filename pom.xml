@@ -13,6 +13,7 @@
         <module>mt-shop-service-impl</module>
         <module>mt-shop-service-base</module>
         <module>mt-shop-basics</module>
+        <module>mt-shop-common</module>
     </modules>
 
     <parent>
