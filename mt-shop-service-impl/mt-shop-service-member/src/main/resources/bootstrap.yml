@@ -11,5 +11,18 @@ spring:
       config:
         server-addr: 122.51.108.102:8849
         file-extension: yaml
+  datasource:
+    url: jdbc:mysql://122.51.108.102:3307/meite_member?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    username: root
+    password: ok
+    driver-class-name: com.mysql.jdbc.Driver
+    redis:
+      host: 122.51.108.102
+      port: 6388
   profiles:
     active: dev
+
+mayikt:
+  login:
+    token:
+      prefix: memberlogin
