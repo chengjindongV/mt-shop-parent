@@ -1,4 +1,4 @@
-package com.mayikt.weixin;
+package com.mayikt;
 
 import com.spring4all.swagger.EnableSwagger2Doc;
 import org.mybatis.spring.annotation.MapperScan;
