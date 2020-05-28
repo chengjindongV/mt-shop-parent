@@ -3,6 +3,7 @@ package com.mayikt.member.impl.mapper;
 
 import com.mayikt.member.impl.entitydo.UserDo;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 
@@ -13,8 +14,8 @@ import org.apache.ibatis.annotations.Select;
  */
 public interface UserMapper {
 
-    @Insert("INSERT INTO `meite_user` VALUES (null, #{mobile},null, #{passWord}, null, '0', '0', null," +
-            " '1', now(), null, null);\n")
+    @Insert("INSERT INTO `meite_user` VALUES (null, #{mobile},#{passWord},null, '0', '0', now()," +
+            " '1', null, null, null);\n")
     int register(UserDo userDo);
 
     @Select("SELECT USER_ID AS USERID ,MOBILE AS MOBILE ,password as password\n" +
@@ -23,8 +24,8 @@ public interface UserMapper {
             ",\n" +
             "pic_img  as picimg,qq_openid as qqopenid ,wx_openid as wxopenid\n" +
             "\n" +
-            "from meite_user  where MOBILE=#{mobile}")
-    UserDo login(String mobile, String passWord);
+            "from meite_user  where MOBILE= #{mobile} and PASSWORD= #{passWord} ")
+    UserDo login(@Param("mobile")String mobile, @Param("passWord")String passWord);
 
     @Select("SELECT USER_ID AS USERID ,MOBILE AS MOBILE ,password as password\n" +
             ",user_name as username ,user_name as username,sex as sex \n" +
