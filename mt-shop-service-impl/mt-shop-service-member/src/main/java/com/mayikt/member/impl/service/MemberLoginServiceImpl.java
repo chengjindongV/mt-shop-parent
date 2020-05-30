@@ -8,6 +8,7 @@ import com.mayikt.member.api.service.MemberLoginService;
 import com.mayikt.member.impl.entitydo.UserDo;
 import com.mayikt.member.impl.manage.AsyncLoginLogManage;
 import com.mayikt.member.impl.mapper.UserMapper;
+import com.mayikt.member.impl.utils.ChannelUtils;
 import com.mayikt.utils.MD5Util;
 import com.mayikt.utils.TokenUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -35,9 +36,12 @@ public class MemberLoginServiceImpl extends BaseApiService implements MemberLogi
     @Autowired
     private AsyncLoginLogManage asyncLoginLogManage;
 
+    @Autowired
+    private ChannelUtils channelUtils;
 
     @Override
-    public BaseResponse<JSONObject> login(UserLoginDto userLoginDto) {
+    public BaseResponse<JSONObject> login(UserLoginDto userLoginDto, String sourceIp
+            , String channel, String deviceInfor) {
         // 参数验证
         String mobile = userLoginDto.getMobile();
         if (StringUtils.isEmpty(mobile)) {
@@ -53,9 +57,16 @@ public class MemberLoginServiceImpl extends BaseApiService implements MemberLogi
         if (loginUserDo == null) {
             return setResultError("手机号码或者密码不正确!");
         }
+        // 设备信息
+        if (StringUtils.isEmpty(deviceInfor)) {
+            return setResultError("设备信息不能为空!");
+        }
+        if (!channelUtils.existChannel(channel)) {
+            return setResultError("渠道来源错误!");
+        }
         //获取userId
         Long userId = loginUserDo.getUserId();
-        String userToken = tokenUtils.createToken(loginTokenPrefix, userId + "");
+        String userToken = tokenUtils.createToken(loginTokenPrefix, userId + "", (long) (7*24*60*60));
         /**
          * data{
          *     "userToken":""
@@ -63,12 +74,9 @@ public class MemberLoginServiceImpl extends BaseApiService implements MemberLogi
          */
         JSONObject resultJSON = new JSONObject();
         resultJSON.put("userToken", userToken);
-
-        // 写入日志
-        log.info(Thread.currentThread().getName() + " 处理流程1");
-        asyncLoginLogManage.loginLog(userId, "192.168.212.110", new Date(), userToken
-                , "PC", "windows 谷歌浏览器");
-        log.info(Thread.currentThread().getName() + " 处理流程3");
+        System.out.println("##login 线程的名称:" + Thread.currentThread().getName());
+        asyncLoginLogManage.loginLog(userId, sourceIp, new Date(), userToken
+                , channel, deviceInfor);
         return setResultSuccess(resultJSON);
     }
     /**

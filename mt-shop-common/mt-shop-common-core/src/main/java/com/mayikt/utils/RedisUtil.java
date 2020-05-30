@@ -34,7 +34,7 @@ public class RedisUtil {
 	 */
 	public void setString(String key, String data, Long timeout) {
 		stringRedisTemplate.opsForValue().set(key, data);
-		if (timeout != null) {
+		if (timeout != null) { //参数说明  key 需要设置的key  timeout：key的生存时间  timeuint：时间单位（小时，分钟，秒……）
 			stringRedisTemplate.expire(key, timeout, TimeUnit.SECONDS);
 		}
 	}
@@ -64,10 +64,10 @@ public class RedisUtil {
 
 	/**
 	 * 根据对应的key删除key
-	 * 
+	 *
 	 * @param key
 	 */
-	public void delKey(String key) {
-		stringRedisTemplate.delete(key);
+	public boolean delKey(String key) {
+		return stringRedisTemplate.delete(key);
 	}
 }

@@ -42,4 +42,8 @@ public class TokenUtils {
         return redisUtil.getString(token);
     }
 
+    public  boolean delToken(String token){
+        return  redisUtil.delKey(token);
+    }
+
 }
