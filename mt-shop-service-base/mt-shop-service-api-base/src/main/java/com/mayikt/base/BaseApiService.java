@@ -1,10 +1,7 @@
 package com.mayikt.base;
 
 import com.mayikt.bean.MeiteBeanUtils;
-
-
 import com.mayikt.constants.Constants;
-
 import lombok.Data;
 
 /**
@@ -88,7 +85,7 @@ public class BaseApiService<T> {
         return MeiteBeanUtils.doToDto(doEntity, dtoClass);
     }
 
-    public BaseResponse<T> setResult(int dbCount, T successMsg, String errorMsg) {
+    public BaseResponse<T> setResultDb(int dbCount, T successMsg, String errorMsg) {
         return dbCount > 0 ? setResultSuccess(successMsg) :
                 setResultError(errorMsg);
     }

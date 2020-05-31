@@ -25,3 +25,4 @@ mayikt:
   wx:
     defaultMsg:  您的消息我已经收到了，后期会给您回复的噢!
     rpcWeatherUrl: https://api.seniverse.com/v3/weather/now.json?key=S2f6L62SpD0ivVO6j&location=####&language=zh-Hans&unit=c
+    loginTemplateId: gzUdHSFlt8lprEv3VNljkBbUUd707UhIBkRKt0q-LfE

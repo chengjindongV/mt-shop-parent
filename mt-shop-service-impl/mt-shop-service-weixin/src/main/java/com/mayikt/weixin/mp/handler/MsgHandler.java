@@ -50,6 +50,10 @@ public class MsgHandler extends AbstractHandler {
             return new TextBuilder().build(StringUtils.isEmpty(keywordValue) ? defaultMsg
                     : keywordValue, wxMessage, weixinService);
         }
+        if (StringUtils.isEmpty(content)) {
+            //3.回复默认消息
+            return new TextBuilder().build(defaultMsg, wxMessage, weixinService);
+        }
         //2.调用第三方天气预报接口查询
         String replaceRpcWeatherUrl = rpcWeatherUrl.replace("####", content);
         JSONObject resultJsonObject = HttpClientUtils.httpGet(replaceRpcWeatherUrl);

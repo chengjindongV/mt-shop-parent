@@ -1,5 +1,6 @@
 package com.mayikt.weixin.mp.handler;
 
+import com.mayikt.weixin.impl.manager.WxMpServiceManage;
 import com.mayikt.weixin.mp.builder.TextBuilder;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.session.WxSessionManager;
@@ -7,6 +8,8 @@ import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -16,6 +19,8 @@ import java.util.Map;
  */
 @Component
 public class SubscribeHandler extends AbstractHandler {
+    @Autowired
+    private WxMpServiceManage wxMpServiceManage;
 
     @Override
     public WxMpXmlOutMessage handle(WxMpXmlMessage wxMessage,
@@ -27,7 +32,7 @@ public class SubscribeHandler extends AbstractHandler {
         // 获取微信用户基本信息
         try {
             WxMpUser userWxInfo = weixinService.getUserService()
-                .userInfo(wxMessage.getFromUser(), null);
+                    .userInfo(wxMessage.getFromUser(), null);
             if (userWxInfo != null) {
                 // TODO 可以添加关注用户到本地数据库
             }
@@ -37,6 +42,17 @@ public class SubscribeHandler extends AbstractHandler {
             }
         }
 
+        //  说明没有关注该微信公众号 扫码生成的二维码连接 走该类
+
+        String eventKey = wxMessage.getEventKey();
+        if (!StringUtils.isEmpty(eventKey)) {
+            String qrscene = eventKey.replace("qrscene_", "");
+            Long userId = Long.parseLong(qrscene);
+            String openId = wxMessage.getFromUser();
+            wxMpServiceManage.handler(userId, openId);
+            // 先根据openid 查询是否已经关联
+            // 如果没有关注过的情况下  update
+        }
 
         WxMpXmlOutMessage responseResult = null;
         try {
@@ -62,7 +78,7 @@ public class SubscribeHandler extends AbstractHandler {
      * 处理特殊请求，比如如果是扫码进来的，可以做相应处理
      */
     private WxMpXmlOutMessage handleSpecial(WxMpXmlMessage wxMessage)
-        throws Exception {
+            throws Exception {
         //TODO
         return null;
     }
