@@ -14,6 +14,7 @@
         <module>mt-shop-service-base</module>
         <module>mt-shop-basics</module>
         <module>mt-shop-common</module>
+        <module>mt-shop-service-job</module>
     </modules>
 
     <parent>
