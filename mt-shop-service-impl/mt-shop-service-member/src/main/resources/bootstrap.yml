@@ -21,9 +21,15 @@ spring:
       port: 6388
   profiles:
     active: dev
+  # ????
+  main:
+    allow-bean-definition-overriding: true
 
 mayikt:
   login:
     token:
       prefix: memberlogin
       channel: android,ios,pc
+    qq:
+      accesstoken: https://graph.qq.com/oauth2.0/token?grant_type=authorization_code&client_id={client_id}&client_secret={client_secret}&code={code}&redirect_uri={redirect_uri}
+      openid: https://graph.qq.com/oauth2.0/me?access_token=

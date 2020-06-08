@@ -23,7 +23,7 @@ public class HttpClientUtils {
     private static Logger logger = LoggerFactory.getLogger(HttpClientUtils.class); // 日志记录
 
 
-    public static RequestConfig getRequestConfig(){
+    public static RequestConfig getRequestConfig() {
         RequestConfig requestConfig = RequestConfig.custom()
                 .setConnectTimeout(5000)
                 .setSocketTimeout(5000)
@@ -36,7 +36,7 @@ public class HttpClientUtils {
     /**
      * post请求传输json参数
      *
-     * @param url  url地址
+     * @param url url地址
      * @return
      */
     public static JSONObject httpPost(String url, JSONObject jsonParam) {
@@ -152,4 +152,30 @@ public class HttpClientUtils {
         return jsonResult;
     }
 
+    public static String httpGetResultString(String url) {
+        // get请求返回结果
+        JSONObject jsonResult = null;
+        CloseableHttpClient client = HttpClients.createDefault();
+        // 发送get请求
+        HttpGet request = new HttpGet(url);
+        request.setConfig(getRequestConfig());
+        try {
+            CloseableHttpResponse response = client.execute(request);
+
+            // 请求发送成功，并得到响应
+            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                // 读取服务器返回过来的json字符串数据
+                HttpEntity entity = response.getEntity();
+                String strResult = EntityUtils.toString(entity, "utf-8");
+                return strResult;
+            } else {
+                logger.error("get请求提交失败:" + url);
+            }
+        } catch (IOException e) {
+            logger.error("get请求提交失败:" + url, e);
+        } finally {
+            request.releaseConnection();
+        }
+        return null;
+    }
 }
