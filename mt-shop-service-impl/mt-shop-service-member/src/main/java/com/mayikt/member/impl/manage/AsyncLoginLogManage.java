@@ -62,6 +62,8 @@ public class AsyncLoginLogManage {
             weChatLoginTemplateFeign.sendLoginTemplate(loginTemplateDto);
         }
 
+        // 4.关联我们的openid
+
 
     }
 }

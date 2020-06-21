@@ -1,6 +1,7 @@
 package com.mayikt.member.impl.strategy;
 
 import com.mayikt.member.impl.entitydo.UnionLoginDo;
+import com.mayikt.member.impl.entitydo.UserDo;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,4 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 public interface UnionLoginStrategy {
 
     String unionLoginCallback(HttpServletRequest request, UnionLoginDo unionLoginDo);
+
+    UserDo getDbOpenId(String openId);
 }

@@ -63,5 +63,12 @@ public interface UserMapper {
     @Update("\n" +
             "update meite_user set WX_OPENID=null  where WX_OPENID=#{wxOpenId};")
     int cancelFollowOpenId(@Param("wxOpenId") String wxOpenId);
-
+    @Select("SELECT USER_ID AS USERID ,MOBILE AS MOBILE ,password as password\n" +
+            ",user_name as username ,user_name as username,sex as sex \n" +
+            ",age as age ,create_time as createtime,IS_AVALIBLE as ISAVALIBLE\n" +
+            ",\n" +
+            "pic_img  as picimg,qq_openid as qqopenid ,wx_openid as wxopenid\n" +
+            "\n" +
+            "from meite_user  where qq_OpenId=#{qqOpenId}")
+    UserDo selectByQQOpenId(@Param("qqOpenId") String qqOpenId);
 }

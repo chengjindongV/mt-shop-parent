@@ -2,8 +2,11 @@ package com.mayikt.member.impl.strategy.impl;
 
 import com.mayikt.http.HttpClientUtils;
 import com.mayikt.member.impl.entitydo.UnionLoginDo;
+import com.mayikt.member.impl.entitydo.UserDo;
+import com.mayikt.member.impl.mapper.UserMapper;
 import com.mayikt.member.impl.strategy.UnionLoginStrategy;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +25,8 @@ public class QQUnionLoginStrategy implements UnionLoginStrategy {
     private String qqAccessTokenAddres;
     @Value("${mayikt.login.qq.openid}")
     private String qqOpenIdAddres;
-
+    @Autowired
+    private UserMapper userMapper;
     @Override
     public String unionLoginCallback(HttpServletRequest request, UnionLoginDo unionLoginDo) {
         String code = request.getParameter("code");
@@ -31,10 +35,10 @@ public class QQUnionLoginStrategy implements UnionLoginStrategy {
         }
         //1.根据授权码获取accessToken
         // 1.根据授权码获取accessToken
-        qqAccessTokenAddres = qqAccessTokenAddres.replace("{client_id}"
+        String newQQAccessTokenAddres = qqAccessTokenAddres.replace("{client_id}"
                 , unionLoginDo.getAppId()).replace("{client_secret}", unionLoginDo.getAppKey()).
                 replace("{code}", code).replace("{redirect_uri}", unionLoginDo.getRedirectUri());
-        String resultAccessToken = HttpClientUtils.httpGetResultString(qqAccessTokenAddres);
+        String resultAccessToken = HttpClientUtils.httpGetResultString(newQQAccessTokenAddres);
         boolean contains = resultAccessToken.contains("access_token=");
         if (!contains) {
             return null;
@@ -53,10 +57,17 @@ public class QQUnionLoginStrategy implements UnionLoginStrategy {
         if (!openid) {
             return null;
         }
-        String array[] = resultQQOpenId.replace("callback( {", "").
-                replace("} );", "").split(":");
+
+        String array[] = resultQQOpenId.replace("callback( {", "").replace("} );",
+                "").replace("\"", "").trim().split(":");
         String openId = array[2];
+
         return openId;
+    }
+
+    @Override
+    public UserDo getDbOpenId(String openId) {
+       return userMapper.selectByQQOpenId(openId);
     }
 
 
